@@ -1,7 +1,9 @@
 import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
+import CenteredContainer from "./CenteredContainer"
+import { database } from "../../firebase"
 
 export default function UpdateProfile() {
     const emailRef = useRef()
@@ -11,6 +13,7 @@ export default function UpdateProfile() {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory()
+    const [username, setName] = useState("")
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -29,9 +32,16 @@ export default function UpdateProfile() {
         if (passwordRef.current.value) {
             promises.push(updatePassword(passwordRef.current.value))
         }
+        if  (username !== "") {
+            promises.push(database.users.add({
+                username: username,
+                userId: currentUser.uid,
+                //profilePic
+            }))
+        }
 
         Promise.all(promises).then(() => {
-            history.push("/")
+            history.push("/user")
         }).catch(() => {
             setError("Failed to update account")
         }).finally(() => {
@@ -40,12 +50,22 @@ export default function UpdateProfile() {
     }
 
     return (
-        <>
+        <CenteredContainer>
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">Update Profile</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
+                        <Form.Group>
+                            <Form.Label>First Name</Form.Label>
+                            <Form.Control 
+                                type="text"
+                                value={username}
+                                placeholder="Enter your name here"
+                                //defaultValue={}
+                                onChange={e => setName(e.target.value)}
+                            />
+                        </Form.Group>
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="email" ref={emailRef} required defaultValue={currentUser.email} />
@@ -65,8 +85,8 @@ export default function UpdateProfile() {
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                <Link to="/">Back</Link>
+                <Link to="/user">Back</Link>
             </div>
-        </>
+        </CenteredContainer>
     )
 }
