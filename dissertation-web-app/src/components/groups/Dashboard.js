@@ -2,25 +2,33 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import AddGroupButton from './AddGroupButton'
 import AddMediaButton from "./AddMediaButton"
-import Navbar from "./Navbar"
 import { useGroup } from "../../hooks/useGroup"
 import Group from "./Group"
 import File from "./File"
 import GroupBreadCrumbs from "./GroupBreadCrumbs"
 import { useParams, useLocation } from "react-router-dom"
+import { ROOT_GROUP } from '../../hooks/useGroup'
 
-export default function Dashboard() {
+const Dashboard = () => {
     const { groupId } = useParams()
     const { state = {} } = useLocation()
     const { group, groups, childFiles } = useGroup(groupId, state.group)
 
     return <>
-        <Navbar />
         <Container fluid>
             <div className="d-flex align-items-center">
                 <GroupBreadCrumbs currentGroup={group} />
-                <AddMediaButton currentGroup={group}/>
-                <AddGroupButton currentGroup={group}/>
+                <div>
+                    {!(group === ROOT_GROUP) &&
+                    <AddMediaButton currentGroup={group} />
+                    }
+                </div>
+                <div>
+                    {(group === ROOT_GROUP) &&
+                    <AddGroupButton currentGroup={group} />
+                    }
+                </div>
+                
             </div>
             {groups.length > 0 && (
                 <div className="d-flex flex-wrap">
@@ -52,3 +60,5 @@ export default function Dashboard() {
         </Container>
     </>
 }
+
+export default Dashboard

@@ -3,7 +3,7 @@ import { Breadcrumb } from "react-bootstrap"
 import { ROOT_GROUP } from '../../hooks/useGroup'
 import { Link } from "react-router-dom"
 
-export default function GroupBreadCrumbs({ currentGroup }) {
+const GroupBreadCrumbs = ({ currentGroup }) => {
     let path = currentGroup === ROOT_GROUP ? [] : [ROOT_GROUP]
     if (currentGroup) path = [...path, ...currentGroup.path]
 
@@ -37,3 +37,5 @@ export default function GroupBreadCrumbs({ currentGroup }) {
             )}
     </Breadcrumb>
 }
+
+export default GroupBreadCrumbs

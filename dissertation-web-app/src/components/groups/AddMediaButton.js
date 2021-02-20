@@ -8,7 +8,7 @@ import { ROOT_GROUP } from "../../hooks/useGroup"
 import { v4 as uuid4 } from  "uuid"
 import { Toast, ProgressBar } from "react-bootstrap"
 
-export default function AddMediaButton({ currentGroup }) {
+const AddMediaButton = ({ currentGroup }) => {
     const [uploadingFiles, setUploadingFiles] = useState([])
     const { currentUser } = useAuth()
 
@@ -128,3 +128,5 @@ export default function AddMediaButton({ currentGroup }) {
         </>
     )
 }
+
+export default AddMediaButton

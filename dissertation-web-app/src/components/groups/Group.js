@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUsers } from "@fortawesome/free-solid-svg-icons"
 
-export default function Group({ group }) {
+const Group = ({ group }) => {
     return (
         <Button to={{
             pathname: `/group/${group.id}`,
@@ -16,3 +16,6 @@ export default function Group({ group }) {
     </Button>
     )
 }
+
+export default Group
+

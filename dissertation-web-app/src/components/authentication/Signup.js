@@ -3,19 +3,23 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
-// import { database } from "../../firebase"
+import { database } from "../../firebase"
+// import { database } from "../../firebase" 
 
-export default function Signup() {
+const Signup = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
     const { signup } = useAuth()
-    // USERNAME
     // const { currentUser } = useAuth()
-    // const [username, setName] = useState("")
+    const [username, setName] = useState("")
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory()
+
+    function handleChange(e) {
+        setName(e.target.value)
+    }
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -28,17 +32,17 @@ export default function Signup() {
         try {
             setError("")
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value)
+            await signup(emailRef.current.value, passwordRef.current.value).then(cred => {
+                database.users.doc(cred.user.uid).set({
+                    username: username.value
+                })
+            })
+            // setUsername(username.current.value)
             history.push("/")
         } catch {
             setError("Failed to create an account")
         }
 
-        /* USERNAME
-        database.users.add({
-            username: username,
-            userId: currentUser.uid
-        }) */
         setLoading(false)
     }
 
@@ -49,15 +53,15 @@ export default function Signup() {
                     <h2 className="text-center mb-4">Sign Up</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
-                        {/*<Form.Group>
+                        <Form.Group>
                             <Form.Label>First Name</Form.Label>
                             <Form.Control 
                                 type="text"
                                 required
                                 value={username}
-                                onChange={e => setName(e.target.value)}
+                                onChange={handleChange}
                         />
-                        </Form.Group>*/}
+                        </Form.Group>
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="email" ref={emailRef} required/>
@@ -82,3 +86,5 @@ export default function Signup() {
         </CenteredContainer>
     )
 }
+
+export default Signup

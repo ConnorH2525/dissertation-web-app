@@ -1,18 +1,19 @@
 import React from 'react'
 import { Navbar, Nav } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import SignedInLinks from "./SignedInLinks"
+import SignedOutLinks from "./SignedOutLinks"
 
-export default function TopNavbar() {
+const TopNavbar = () => {
     return (
-        <Navbar bg="light" expand="sn">
+    <Navbar bg="light" expand="sn">
             <Navbar.Brand as={Link} to ="/">
                 Picture Frame App
             </Navbar.Brand>
-            <Nav>
-                <Nav.Link as={Link} to ="/user">
-                    Profile
-                </Nav.Link>
-            </Nav>
+                <SignedInLinks />
+                <SignedOutLinks />
         </Navbar>
     )
 }
+
+export default TopNavbar

@@ -8,11 +8,13 @@ import PrivateRoute from "./authentication/PrivateRoute"
 import ForgotPassword from "./authentication/ForgotPassword"
 import UpdateProfile from "./authentication/UpdateProfile"
 import Dashboard from "./groups/Dashboard"
+import Navbar from "./layout/Navbar"
 
 function App() {
   return (
     <Router>
       <AuthProvider>
+        <Navbar />
         <Switch>
           {/* Groups */}
           <PrivateRoute exact path="/" component={Dashboard} />

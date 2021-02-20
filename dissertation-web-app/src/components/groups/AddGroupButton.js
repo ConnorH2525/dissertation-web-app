@@ -6,7 +6,7 @@ import { database } from "../../firebase"
 import { useAuth } from "../../contexts/AuthContext"
 import { ROOT_GROUP } from "../../hooks/useGroup"
 
-export default function AddGroupButton({ currentGroup }) {
+const AddGroupButton = ({ currentGroup }) => {
     const [open, setOpen] = useState(false)
     const [name, setName] = useState("")
     const { currentUser } = useAuth()
@@ -75,3 +75,5 @@ export default function AddGroupButton({ currentGroup }) {
         </>
     )
 }
+
+export default AddGroupButton

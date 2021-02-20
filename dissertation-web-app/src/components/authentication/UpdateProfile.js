@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
 import { database } from "../../firebase"
 
-export default function UpdateProfile() {
+const UpdateProfile = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
@@ -14,6 +14,41 @@ export default function UpdateProfile() {
     const [loading, setLoading] = useState(false)
     const history = useHistory()
     const [username, setName] = useState("")
+
+    
+      useEffect(() => {
+        const fetchUser=async()=> {
+            database.users
+            .where("userId", "==", currentUser.uid)
+            .onSnapshot(snapshot => {
+                setName(snapshot.docs.map(database.formatDoc))
+            })
+          }
+          fetchUser()
+      })
+
+    function updateUsername(username) {
+        //database.users.ref()
+        //.child('users')
+        //.orderByChild('username')
+        //.equalTo(currentUser.uid)
+        //.once('value')
+        //.then(snapshot => {
+            //if (snapshot.exists()) {
+                //return
+            //} else {
+                database.users.add({
+                    username: username,
+                    userId: currentUser.uid,
+                    //profilePic
+                })
+            //}
+        //})
+        //if (username) {
+            //database.ref(`users/${currentUser.uid}`).set(username)
+        //} else {
+        //}
+    }
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -32,12 +67,8 @@ export default function UpdateProfile() {
         if (passwordRef.current.value) {
             promises.push(updatePassword(passwordRef.current.value))
         }
-        if  (username !== "") {
-            promises.push(database.users.add({
-                username: username,
-                userId: currentUser.uid,
-                //profilePic
-            }))
+        if (username) {
+            promises.push(updateUsername(username))
         }
 
         Promise.all(promises).then(() => {
@@ -60,9 +91,7 @@ export default function UpdateProfile() {
                             <Form.Label>First Name</Form.Label>
                             <Form.Control 
                                 type="text"
-                                value={username}
-                                placeholder="Enter your name here"
-                                //defaultValue={}
+                                placeholder="Change your name here"
                                 onChange={e => setName(e.target.value)}
                             />
                         </Form.Group>
@@ -90,3 +119,5 @@ export default function UpdateProfile() {
         </CenteredContainer>
     )
 }
+
+export default UpdateProfile

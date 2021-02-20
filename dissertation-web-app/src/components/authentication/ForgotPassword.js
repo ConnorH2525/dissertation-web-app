@@ -4,7 +4,7 @@ import { useAuth } from "../../contexts/AuthContext"
 import { Link } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
 
-export default function ForgotPassword() {
+const ForgotPassword = () => {
     const emailRef = useRef()
     const { resetPassword } = useAuth()
     const [error, setError] = useState("")
@@ -54,4 +54,6 @@ export default function ForgotPassword() {
         </CenteredContainer>
     )
 }
+
+export default ForgotPassword
 
