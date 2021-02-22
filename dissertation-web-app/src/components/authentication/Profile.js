@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Card, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
@@ -9,7 +9,7 @@ const Profile = () => {
 const [error, setError] = useState("")
 const { currentUser, logout } = useAuth()
 const history = useHistory()
-const [username,setName]=useState([])
+//const [username,setName]=useState([])
 const allImages = {imgUrl: ''}
     const [imageAsFile, setImageAsFile] = useState('')
     const [imageAsUrl, setImageAsUrl] = useState(allImages)
@@ -56,17 +56,6 @@ const allImages = {imgUrl: ''}
             setError("Failed to log out")
         }
     }
-
-    /*useEffect(() => {
-        const fetchUser=async()=>{
-            database.users
-            .where("userId", "==", currentUser.uid)
-            .onSnapshot(snapshot => {
-                setName(snapshot.docs.map(database.formatDoc))
-            })
-          }
-        fetchUser();
-    })*/
     
     return (
         <CenteredContainer>
@@ -87,11 +76,11 @@ const allImages = {imgUrl: ''}
                     </div>
                     <div>
                         <strong>First Name: </strong>
-                        {username && username.map(username=>{
+                        {/*{username && username.map(username=>{
                             return(
                                 username.username
                             )}
-                        )}
+                            )}*/}
                     </div>
                     <strong>Email: </strong>{currentUser.email}
                     <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
