@@ -3,15 +3,13 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
-import { database } from "../../firebase"
-// import { database } from "../../firebase" 
+import database from "../../firebase" 
 
 const Signup = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
     const { signup } = useAuth()
-    // const { currentUser } = useAuth()
     const [username, setName] = useState("")
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
@@ -32,31 +30,54 @@ const Signup = () => {
         try {
             setError("")
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value).then(cred => {
-                database.users.doc(cred.user.uid).set({
-                    username: username.value
-                })
-            })
-            // setUsername(username.current.value)
-            history.push("/")
+            await signup(emailRef.current.value, passwordRef.current.value)
+            
         } catch {
             setError("Failed to create an account")
+        }
+        try {
+            const currentUser = useAuth()
+            database.users
+            .doc(currentUser.uid)
+            .set({
+                username: username
+            })
+            history.push("/")
+        } catch {
+            setError("Failed to add username")
         }
 
         setLoading(false)
     }
 
+    /*
+    function generateUser() {
+        const currentUser = useAuth()
+        try {
+            firestore.collection("users")
+                    .doc(currentUser.uid)
+                    .set({
+                        username: username
+                    })
+                } catch {
+                    setError("Failed to add username")
+                }
+    }*/
+
     return (
+        <div style={{backgroundColor:"#F6D7AF"}}>
         <CenteredContainer>
-            <Card>
+            <Card style={{backgroundColor:"#F6D7AF"}}>
                 <Card.Body>
-                    <h2 className="text-center mb-4">Sign Up</h2>
+                    <h2 className="text-center mb-4">Create Account</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group>
                             <Form.Label>First Name</Form.Label>
                             <Form.Control 
                                 type="text"
+                                name="username"
+                                id="username"
                                 required
                                 value={username}
                                 onChange={handleChange}
@@ -74,16 +95,17 @@ const Signup = () => {
                             <Form.Label>Password Confirmation</Form.Label>
                             <Form.Control type="password" ref={passwordConfirmRef} required/>
                         </Form.Group>
-                        <Button disabled={loading} className="w-100" type="submit">
-                            Sign Up
+                        <Button disabled={loading} className="w-100" type="submit" style={{backgroundColor:"#FF6B09", borderColor:"#FF6B09"}}>
+                            Create Account
                         </Button>
                     </Form>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Already have an account? <Link to="/login">Log In</Link>
+                Already have an account? <Link style={{color: "#FF6B09"}} to="/login">Log In</Link>
             </div>
         </CenteredContainer>
+        </div>
     )
 }
 

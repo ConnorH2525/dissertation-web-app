@@ -6,15 +6,15 @@ const SignedOutLinks = () => {
     return (
         <>
         <Nav>
-            <Nav.Link as={Link} to ="/login">
-                Login
+            <Nav.Link as={Link} style={{color:"lightgrey"}} to ="/signup">
+                Create Account
             </Nav.Link>
         </Nav>
         <Nav>
-            <Nav.Link as={Link} to ="/signup">
-                Signup
+            <Nav.Link as={Link} style={{color:"lightgrey"}} to ="/login">
+                Login
             </Nav.Link>
-        </Nav>  
+        </Nav>
         </>
     )
 }

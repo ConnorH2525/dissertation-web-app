@@ -2,6 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import AddGroupButton from './AddGroupButton'
 import AddMediaButton from "./AddMediaButton"
+import JoinGroupButton from "./JoinGroupButton"
 import { useGroup } from "../../hooks/useGroup"
 import Group from "./Group"
 import File from "./File"
@@ -14,21 +15,24 @@ const Dashboard = () => {
     const { state = {} } = useLocation()
     const { group, groups, childFiles } = useGroup(groupId, state.group)
 
-    return <>
+    return <div style={{height:"100%", backgroundColor:"#F6D7AF"}}>
         <Container fluid>
             <div className="d-flex align-items-center">
-                <GroupBreadCrumbs currentGroup={group} />
-                <div>
-                    {!(group === ROOT_GROUP) &&
-                    <AddMediaButton currentGroup={group} />
-                    }
-                </div>
-                <div>
-                    {(group === ROOT_GROUP) &&
-                    <AddGroupButton currentGroup={group} />
-                    }
-                </div>
+                <GroupBreadCrumbs currentGroup={group}/>
                 
+            </div>
+            <div>
+                {!(group === ROOT_GROUP) &&
+                    <AddMediaButton currentGroup={group} />
+                }
+            </div>
+            <div>
+                {(group === ROOT_GROUP) &&
+                <div>
+                    <AddGroupButton currentGroup={group} />
+                    <JoinGroupButton />
+                </div>
+                }
             </div>
             {groups.length > 0 && (
                 <div className="d-flex flex-wrap">
@@ -58,7 +62,7 @@ const Dashboard = () => {
                 </div>
             )}
         </Container>
-    </>
+    </div>
 }
 
 export default Dashboard

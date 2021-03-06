@@ -15,7 +15,7 @@ const app = firebase.initializeApp({
 const firestore = app.firestore()
 export const database = {
     users: firestore.collection("users"),
-    profilePic: firestore.collection("profilePics"),
+    //profilePic: firestore.collection("profilePics"),
     groups: firestore.collection("groups"),
     files: firestore.collection("files"),
     formatDoc: doc => {
@@ -23,6 +23,23 @@ export const database = {
     },
     getCurrentTimestamp: firebase.firestore.FieldValue.serverTimestamp,
 }
+
+/*export const generateUserDocument = async (user) => {
+    if (!user) return;
+    const userRef = firestore.doc(`users/${user.uid}`)
+    const snapshot = await userRef.get()
+    if (!snapshot.exists) {
+        const { username, photoURL } = user
+        try {
+            await userRef.set({
+                username,
+                photoURL
+            })
+        } catch (error) {
+            console.error("Error creating user document", error)
+        }
+    }
+}*/
 export const storage = app.storage()
 export const auth = app.auth()
 export default app

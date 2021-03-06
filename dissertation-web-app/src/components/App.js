@@ -9,6 +9,7 @@ import ForgotPassword from "./authentication/ForgotPassword"
 import UpdateProfile from "./authentication/UpdateProfile"
 import Dashboard from "./groups/Dashboard"
 import Navbar from "./layout/Navbar"
+import "../style.css"
 
 function App() {
   return (

@@ -9,24 +9,27 @@ const UpdateProfile = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
+    const passwordReauthRef = useRef()
     const { currentUser, updateEmail, updatePassword } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory()
-    const [username, setName] = useState("")
+    //const [username, setName] = useState("")
 
     
+    /*
       useEffect(() => {
         const fetchUser=async()=> {
             database.users
             .where("userId", "==", currentUser.uid)
             .onSnapshot(snapshot => {
-                setName(snapshot.docs.map(database.formatDoc))
+                snapshot.docs.map(database.formatDoc)
             })
           }
           fetchUser()
       })
 
+      
     function updateUsername(username) {
         //database.users.ref()
         //.child('users')
@@ -37,9 +40,9 @@ const UpdateProfile = () => {
             //if (snapshot.exists()) {
                 //return
             //} else {
-                database.users.add({
+                database.users.doc(currentUser.uid)
+                    .set({
                     username: username,
-                    userId: currentUser.uid,
                     //profilePic
                 })
             //}
@@ -48,7 +51,7 @@ const UpdateProfile = () => {
             //database.ref(`users/${currentUser.uid}`).set(username)
         //} else {
         //}
-    }
+    }*/
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -67,9 +70,9 @@ const UpdateProfile = () => {
         if (passwordRef.current.value) {
             promises.push(updatePassword(passwordRef.current.value))
         }
-        if (username) {
-            promises.push(updateUsername(username))
-        }
+        //if (username) {
+            //promises.push(updateUsername(username))
+        //}
 
         Promise.all(promises).then(() => {
             history.push("/user")
@@ -80,21 +83,34 @@ const UpdateProfile = () => {
         })
     }
 
-    return (
-        <CenteredContainer>
-            <Card>
-                <Card.Body>
-                    <h2 className="text-center mb-4">Update Profile</h2>
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group>
+    /*<Form.Group>
                             <Form.Label>First Name</Form.Label>
                             <Form.Control 
                                 type="text"
                                 placeholder="Change your name here"
                                 onChange={e => setName(e.target.value)}
-                            />
-                        </Form.Group>
+                        />
+    </Form.Group>*/
+
+    /*async function handleDelete() {
+        setError("")
+
+        try {
+            await deleteAccount()
+            history.pushState("/login")
+        } catch {
+            setError("Failed to delete account")
+        }
+    }*/
+
+    return (
+        <div style={{backgroundColor:"#F6D7AF"}}>
+        <CenteredContainer>
+            <Card style={{backgroundColor:"#F6D7AF"}}>
+                <Card.Body>
+                    <h2 className="text-center mb-4">Update Profile</h2>
+                    {error && <Alert variant="danger">{error}</Alert>}
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="email" ref={emailRef} required defaultValue={currentUser.email} />
@@ -107,16 +123,20 @@ const UpdateProfile = () => {
                             <Form.Label>Password Confirmation</Form.Label>
                             <Form.Control type="password" ref={passwordConfirmRef} placeholder="Leave blank to keep the same"/>
                         </Form.Group>
-                        <Button disabled={loading} className="w-100" type="submit">
+                        <Button disabled={loading} className="w-100" type="submit" style={{backgroundColor:"#FF6B09", borderColor:"#FF6B09"}}>
                             Update
                         </Button>
+                        {/*<Button onClick={handleDelete} className="w-100" variant="link" style={{backgroundColor:"red", borderColor:"#FF6B09", marginTop:"10px"}}>
+                            Delete Account
+                        </Button>*/}
                     </Form>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                <Link to="/user">Back</Link>
+                <Link style={{color: "#FF6B09"}} to="/user">Back</Link>
             </div>
         </CenteredContainer>
+        </div>
     )
 }
 

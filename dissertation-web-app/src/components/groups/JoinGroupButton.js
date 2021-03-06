@@ -6,9 +6,9 @@ import { database } from "../../firebase"
 import { useAuth } from "../../contexts/AuthContext"
 import { ROOT_GROUP } from "../../hooks/useGroup"
 
-const AddGroupButton = ({ currentGroup }) => {
+const JoinGroupButton = () => {
     const [open, setOpen] = useState(false)
-    const [name, setName] = useState("")
+    const [code, setCode] = useState("")
     const { currentUser } = useAuth()
 
     function openModal() {
@@ -22,24 +22,14 @@ const AddGroupButton = ({ currentGroup }) => {
     function handleSubmit(e) {
         e.preventDefault()
 
-        if (currentGroup == null) return
+        /*database.groups.ref("members")
+            .doc("members")
+            .where("id", "==", code)
+            .add({
+                userId: currentUser.uid,
+        })*/
 
-        const path = [...currentGroup.path]
-        if (currentGroup !== ROOT_GROUP) {
-            path.push({ name: currentGroup.name, id: currentGroup.id })
-        }
-
-
-        database.groups.add({
-            name: name,
-            //userId: currentUser.uid,
-            parentId: currentGroup.id,
-            path: path,
-            createdAt: database.getCurrentTimestamp(),
-            members: [currentUser.uid]
-        })
-
-        setName("")
+        setCode("")
         closeModal()
     }
 
@@ -47,19 +37,19 @@ const AddGroupButton = ({ currentGroup }) => {
         <>
         <Button onClick={openModal} style={{backgroundColor:"rgba(0, 0, 0, 0)", minWidth:"150px", marginTop:"10px", color:"#FF6B09", borderColor: "#FF6B09"}}>
             <FontAwesomeIcon icon={faPlus} size="3x" style={{color:"#212121"}}/>
-            <p>Create Group</p>
+            <p>Join Group</p>
             {/*<FontAwesomeIcon icon={faUsers} style={{color: "#FF6B09"}}/>*/}
         </Button>
         <Modal show={open} onHide={closeModal}>
             <Form onSubmit={handleSubmit}>
                 <Modal.Body>
                     <Form.Group>
-                        <Form.Label>Group Name</Form.Label>
+                        <Form.Label>Group Code</Form.Label>
                         <Form.Control
                             type="text"
                             required
-                            value={name}
-                            onChange={e => setName(e.target.value)}
+                            value={code}
+                            onChange={e => setCode(e.target.value)}
                             />
                     </Form.Group>
                 </Modal.Body>
@@ -68,7 +58,7 @@ const AddGroupButton = ({ currentGroup }) => {
                         Close
                     </Button>
                     <Button variant="success" type="submit" style={{backgroundColor:"#FF6B09", borderColor:"#FF6B09"}}>
-                        Create Group
+                        Join Group
                     </Button>
                 </Modal.Footer>
             </Form>
@@ -77,4 +67,4 @@ const AddGroupButton = ({ currentGroup }) => {
     )
 }
 
-export default AddGroupButton
+export default JoinGroupButton

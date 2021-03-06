@@ -9,6 +9,7 @@ const GroupBreadCrumbs = ({ currentGroup }) => {
 
     return <Breadcrumb className="flex-grow-1"
             listProps={{ className: "bg-white pl-0 m-0"}}
+            style={{color:"#FF6B09"}}
             >
                 {path.map((group, index) => (
                     <Breadcrumb.Item
@@ -21,7 +22,7 @@ const GroupBreadCrumbs = ({ currentGroup }) => {
                         }
                     }}
                     className="text-truncate d-inline-block" 
-                    style = {{ maxWidth: "150px" }}
+                    style = {{ maxWidth: "150px", color:"#FF6B09"}}
                 >
                     {group.name}
                 </Breadcrumb.Item>

@@ -83,8 +83,10 @@ const AddMediaButton = ({ currentGroup }) => {
 
     return (
         <>
-            <label className="btn btn-outline-success btn-sm m-0 mr-2">
-                <FontAwesomeIcon icon={faFileUpload} />
+            <div style={{marginTop:"10px"}}></div>
+            <label className="btn btn-sm m-0 mr-2" style={{backgroundColor:"rgba(0, 0, 0, 0)", minWidth:"150px", color:"#FF6B09", borderColor: "#FF6B09"}}>
+                <FontAwesomeIcon icon={faFileUpload} size="3x" style={{color:"#212121"}}/>
+                <p>Upload Media</p>
                 <input type="file" onChange={handleUpload} style={{ opacity: 0, position: "absolute", left: "-9999px" }} />
             </label>
             {uploadingFiles.length > 0 &&

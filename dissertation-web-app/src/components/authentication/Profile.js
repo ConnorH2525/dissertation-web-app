@@ -19,7 +19,7 @@ const allImages = {imgUrl: ''}
         setImageAsFile(imageAsFile => (image))
     }
 
-    const handlePicUpload = (e) => {
+    /*const handlePicUpload = (e) => {
         e.preventDefault()
 
         if(imageAsFile === '') {
@@ -44,7 +44,7 @@ const allImages = {imgUrl: ''}
             })
         })
 
-    }
+    }*/
     
     async function handleLogout() {
         setError("")
@@ -58,22 +58,25 @@ const allImages = {imgUrl: ''}
     }
     
     return (
+        <div style={{backgroundColor:"#F6D7AF"}}>
         <CenteredContainer>
             <div className="w-100 text-left mt-2">
-                <Link to="/">&lt; Back to Groups</Link>
+                <Link style={{fontWeight:"bold", color:"#FF6B09"}} to="/">&lt; Groups</Link>
             </div>
-            <Card>
+            <div style={{padding:"5px"}}></div>
+            <Card style={{backgroundColor:"#F6D7AF"}}>
                 <Card.Body>
                     <h2 className="text-center mb-4">Profile</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <div>
                         <strong>Profile Picture: </strong>
                         <img src={imageAsUrl.imgUrl} alt="" />
-                        <form onSubmit={handlePicUpload}>
+                        <form>
                             <input type="file" onChange={handleImageAsFile}/>
-                            <Button>Upload Profile Picture</Button>
+                            <Button style={{padding:"0 6px 0 6px", borderColor:"#FF6B09", backgroundColor:"#FF6B09"}}>Update Profile Picture</Button>
                         </form>
                     </div>
+                    <hr></hr>
                     <div>
                         <strong>First Name: </strong>
                         {/*{username && username.map(username=>{
@@ -83,15 +86,16 @@ const allImages = {imgUrl: ''}
                             )}*/}
                     </div>
                     <strong>Email: </strong>{currentUser.email}
-                    <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
+                    <Link to="/update-profile" className="btn btn-primary w-100 mt-3" style={{backgroundColor: "#FF6B09", borderColor: "#FF6B09"}}>
                         Update Profile
                     </Link>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Not you?<Button variant="link" onClick={handleLogout}>Log Out</Button>
+                Not you?<Button variant="link" onClick={handleLogout} style={{color: "#FF6B09"}}>Log Out</Button>
             </div>
         </CenteredContainer>
+        </div>
     )
 }
 

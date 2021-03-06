@@ -28,8 +28,9 @@ const Login = () => {
     }
 
     return (
+        <div style={{backgroundColor:"#F6D7AF"}}>
         <CenteredContainer>
-            <Card>
+            <Card style={{backgroundColor:"#F6D7AF"}}>
                 <Card.Body>
                     <h2 className="text-center mb-4">Log In</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
@@ -42,19 +43,20 @@ const Login = () => {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" ref={passwordRef} required/>
                         </Form.Group>
-                        <Button disabled={loading} className="w-100" type="submit">
+                        <Button disabled={loading} className="w-100" type="submit" style={{backgroundColor:"#FF6B09", borderColor:"#FF6B09"}}>
                             Log In
                         </Button>
                     </Form>
                     <div className="w-100 text-center mt-3">
-                        <Link to="/forgot-password">Forgot Password?</Link>
+                        <Link style={{color:"#FF6B09"}} to="/forgot-password">Forgot Password?</Link>
                     </div>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Need an account? <Link to="/signup">Sign Up</Link>
+                Need an account? <Link style={{color:"#FF6B09"}} to="/signup">Create Account</Link>
             </div>
         </CenteredContainer>
+        </div>
     )
 }
 

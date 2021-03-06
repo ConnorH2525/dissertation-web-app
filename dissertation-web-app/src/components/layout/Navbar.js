@@ -10,11 +10,11 @@ const TopNavbar = () => {
     const links = currentUser ? <SignedInLinks /> : <SignedOutLinks />
 
     return (
-    <Navbar bg="light" expand="sn">
-            <Navbar.Brand as={Link} to ="/">
+        <Navbar style={{backgroundColor:"#212121", justifyContent: "center"}}>
+            <Navbar.Brand id="title" as={Link} style={{fontWeight:"bold", color:"white"}} to ="/">
                 Picture Frame App
             </Navbar.Brand>
-                {links}
+            {links}
         </Navbar>
     )
 }
