@@ -3,13 +3,15 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
-import database from "../../firebase" 
+import firebase from "../../firebase"
+import "firebase/firestore"
+ 
 
 const Signup = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
-    const { signup } = useAuth()
+    const { currentUser, signup } = useAuth()
     const [username, setName] = useState("")
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
@@ -30,25 +32,14 @@ const Signup = () => {
         try {
             setError("")
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value)
-            
+            await signup(emailRef.current.value, passwordRef.current.value, username)
+            history.push("/")
         } catch {
             setError("Failed to create an account")
         }
-        try {
-            const currentUser = useAuth()
-            database.users
-            .doc(currentUser.uid)
-            .set({
-                username: username
-            })
-            history.push("/")
-        } catch {
-            setError("Failed to add username")
-        }
-
         setLoading(false)
     }
+
 
     /*
     function generateUser() {

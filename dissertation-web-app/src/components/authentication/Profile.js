@@ -9,15 +9,15 @@ const Profile = () => {
 const [error, setError] = useState("")
 const { currentUser, logout } = useAuth()
 const history = useHistory()
-//const [username,setName]=useState([])
-const allImages = {imgUrl: ''}
-    const [imageAsFile, setImageAsFile] = useState('')
-    const [imageAsUrl, setImageAsUrl] = useState(allImages)
+const [username,setName]=useState("")
+//const allImages = {imgUrl: ''}
+    //const [imageAsFile, setImageAsFile] = useState('')
+    //const [imageAsUrl, setImageAsUrl] = useState(allImages)
 
-    const handleImageAsFile = (e) => {
-        const image = e.target.files[0]
-        setImageAsFile(imageAsFile => (image))
-    }
+    //const handleImageAsFile = (e) => {
+        //const image = e.target.files[0]
+        //setImageAsFile(imageAsFile => (image))
+    //}
 
     /*const handlePicUpload = (e) => {
         e.preventDefault()
@@ -56,6 +56,15 @@ const allImages = {imgUrl: ''}
             setError("Failed to log out")
         }
     }
+
+    // <div>
+    //                     <strong>Profile Picture: </strong>
+    //                     <img src={imageAsUrl.imgUrl} alt="" />
+    //                     <form>
+    //                         <input type="file" onChange={handleImageAsFile}/>
+    //                         <Button style={{padding:"0 6px 0 6px", borderColor:"#FF6B09", backgroundColor:"#FF6B09"}}>Update Profile Picture</Button>
+    //                     </form>
+    //                 </div>
     
     return (
         <div style={{backgroundColor:"#F6D7AF"}}>
@@ -68,22 +77,15 @@ const allImages = {imgUrl: ''}
                 <Card.Body>
                     <h2 className="text-center mb-4">Profile</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
-                    <div>
-                        <strong>Profile Picture: </strong>
-                        <img src={imageAsUrl.imgUrl} alt="" />
-                        <form>
-                            <input type="file" onChange={handleImageAsFile}/>
-                            <Button style={{padding:"0 6px 0 6px", borderColor:"#FF6B09", backgroundColor:"#FF6B09"}}>Update Profile Picture</Button>
-                        </form>
-                    </div>
+                    
                     <hr></hr>
                     <div>
                         <strong>First Name: </strong>
-                        {/*{username && username.map(username=>{
+                        {username && username.map(username=>{
                             return(
                                 username.username
                             )}
-                            )}*/}
+                            )}
                     </div>
                     <strong>Email: </strong>{currentUser.email}
                     <Link to="/update-profile" className="btn btn-primary w-100 mt-3" style={{backgroundColor: "#FF6B09", borderColor: "#FF6B09"}}>
