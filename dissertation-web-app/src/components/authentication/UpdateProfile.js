@@ -1,20 +1,20 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
-import { database } from "../../firebase"
+import firebase from "../../firebase"
+import "firebase/firestore"
 
 const UpdateProfile = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
-    const passwordReauthRef = useRef()
     const { currentUser, updateEmail, updatePassword } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory()
-    //const [username, setName] = useState("")
+    const [username, setName] = useState("")
 
     
     /*
@@ -27,31 +27,26 @@ const UpdateProfile = () => {
             })
           }
           fetchUser()
-      })
+      })*/
 
-      
+    //   useEffect(() => {
+    //     firebase.firestore().collection("users")
+    //     .doc(currentUser.uid)
+    //     .get()
+    //     .then(doc => {
+    //         setName(database.formatDoc(doc))
+    //     })
+    // })
+
     function updateUsername(username) {
-        //database.users.ref()
-        //.child('users')
-        //.orderByChild('username')
-        //.equalTo(currentUser.uid)
-        //.once('value')
-        //.then(snapshot => {
-            //if (snapshot.exists()) {
-                //return
-            //} else {
-                database.users.doc(currentUser.uid)
-                    .set({
-                    username: username,
-                    //profilePic
-                })
-            //}
-        //})
-        //if (username) {
-            //database.ref(`users/${currentUser.uid}`).set(username)
-        //} else {
-        //}
-    }*/
+        const db = firebase.firestore()
+        db.collection("users")
+        .doc(currentUser.uid)
+        .set({
+            userId: currentUser.uid,
+            username: username
+        })
+    }
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -70,9 +65,9 @@ const UpdateProfile = () => {
         if (passwordRef.current.value) {
             promises.push(updatePassword(passwordRef.current.value))
         }
-        //if (username) {
-            //promises.push(updateUsername(username))
-        //}
+        if (username) {
+            promises.push(updateUsername(username))
+        }
 
         Promise.all(promises).then(() => {
             history.push("/user")
@@ -83,14 +78,7 @@ const UpdateProfile = () => {
         })
     }
 
-    /*<Form.Group>
-                            <Form.Label>First Name</Form.Label>
-                            <Form.Control 
-                                type="text"
-                                placeholder="Change your name here"
-                                onChange={e => setName(e.target.value)}
-                        />
-    </Form.Group>*/
+    
 
     /*async function handleDelete() {
         setError("")
@@ -111,6 +99,14 @@ const UpdateProfile = () => {
                     <h2 className="text-center mb-4">Update Profile</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
+                        <Form.Group>
+                            <Form.Label>First Name</Form.Label>
+                            <Form.Control 
+                                type="text"
+                                placeholder="Change your name here"
+                                onChange={e => setName(e.target.value)}
+                            />
+                        </Form.Group>
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="email" ref={emailRef} required defaultValue={currentUser.email} />

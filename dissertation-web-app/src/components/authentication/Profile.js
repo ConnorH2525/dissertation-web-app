@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from './CenteredContainer'
-import { database } from '../../firebase'
+import firebase, { database } from "../../firebase"
+import "firebase/firestore"
 
 const Profile = () => {
 const [error, setError] = useState("")
@@ -45,6 +46,15 @@ const [username,setName]=useState("")
         })
 
     }*/
+
+    useEffect(() => {
+        firebase.firestore().collection("users")
+        .doc(currentUser.uid)
+        .get()
+        .then(doc => {
+            setName(database.formatDoc(doc))
+        })
+    }, [])
     
     async function handleLogout() {
         setError("")
@@ -81,11 +91,7 @@ const [username,setName]=useState("")
                     <hr></hr>
                     <div>
                         <strong>First Name: </strong>
-                        {username && username.map(username=>{
-                            return(
-                                username.username
-                            )}
-                            )}
+                        {username && username.username}
                     </div>
                     <strong>Email: </strong>{currentUser.email}
                     <Link to="/update-profile" className="btn btn-primary w-100 mt-3" style={{backgroundColor: "#FF6B09", borderColor: "#FF6B09"}}>

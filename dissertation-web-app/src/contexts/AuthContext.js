@@ -23,6 +23,7 @@ export function AuthProvider({ children }) {
             db.collection("users")
             .doc(currentUser.uid)
             .set({
+                userId: currentUser.uid,
                 username: username
             })
         } catch (err) {

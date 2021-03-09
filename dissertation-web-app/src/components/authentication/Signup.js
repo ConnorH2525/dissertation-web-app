@@ -40,21 +40,6 @@ const Signup = () => {
         setLoading(false)
     }
 
-
-    /*
-    function generateUser() {
-        const currentUser = useAuth()
-        try {
-            firestore.collection("users")
-                    .doc(currentUser.uid)
-                    .set({
-                        username: username
-                    })
-                } catch {
-                    setError("Failed to add username")
-                }
-    }*/
-
     return (
         <div style={{backgroundColor:"#F6D7AF"}}>
         <CenteredContainer>
