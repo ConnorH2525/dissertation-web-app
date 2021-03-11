@@ -35,7 +35,7 @@ const JoinGroupButton = () => {
 
     return (
         <>
-        <Button onClick={openModal} style={{backgroundColor:"rgba(0, 0, 0, 0)", minWidth:"150px", marginTop:"10px", color:"#FF6B09", borderColor: "#FF6B09"}}>
+        <Button onClick={openModal} style={{backgroundColor:"rgba(0, 0, 0, 0)", minWidth:"150px", marginTop:"10px", marginLeft:"10px", color:"#FF6B09", borderColor: "#FF6B09"}}>
             <FontAwesomeIcon icon={faPlus} size="3x" style={{color:"#212121"}}/>
             <p>Join Group</p>
             {/*<FontAwesomeIcon icon={faUsers} style={{color: "#FF6B09"}}/>*/}
