@@ -3,7 +3,6 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
-import firebase from "../../firebase"
 import "firebase/firestore"
  
 
@@ -11,7 +10,7 @@ const Signup = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
-    const { currentUser, signup } = useAuth()
+    const { signup } = useAuth()
     const [username, setName] = useState("")
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)

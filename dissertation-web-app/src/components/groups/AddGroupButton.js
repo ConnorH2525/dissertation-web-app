@@ -36,7 +36,7 @@ const AddGroupButton = ({ currentGroup }) => {
             parentId: currentGroup.id,
             path: path,
             createdAt: database.getCurrentTimestamp(),
-            //members: [currentUser.uid]
+            members: [currentUser.uid]
         })
 
         setName("")

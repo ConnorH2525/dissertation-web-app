@@ -80,7 +80,7 @@ export function useGroup(groupId = null, group = null) {
     useEffect(() => {
     return database.groups
         .where("parentId", "==", groupId)
-        .where("userId", "==", currentUser.uid)
+        .where("members", "==", currentUser.uid)
         .orderBy("createdAt")
         .onSnapshot(snapshot => {
             //if (snapshot.val.includes(currentUser.uid)) {

@@ -16,28 +16,6 @@ const UpdateProfile = () => {
     const history = useHistory()
     const [username, setName] = useState("")
 
-    
-    /*
-      useEffect(() => {
-        const fetchUser=async()=> {
-            database.users
-            .where("userId", "==", currentUser.uid)
-            .onSnapshot(snapshot => {
-                snapshot.docs.map(database.formatDoc)
-            })
-          }
-          fetchUser()
-      })*/
-
-    //   useEffect(() => {
-    //     firebase.firestore().collection("users")
-    //     .doc(currentUser.uid)
-    //     .get()
-    //     .then(doc => {
-    //         setName(database.formatDoc(doc))
-    //     })
-    // })
-
     function updateUsername(username) {
         const db = firebase.firestore()
         db.collection("users")
@@ -77,8 +55,6 @@ const UpdateProfile = () => {
             setLoading(false)
         })
     }
-
-    
 
     /*async function handleDelete() {
         setError("")
