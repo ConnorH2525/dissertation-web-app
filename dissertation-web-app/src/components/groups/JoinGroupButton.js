@@ -31,13 +31,15 @@ const JoinGroupButton = () => {
             .then((doc) => {
                 console.log(doc.data().members)
                 members = [...doc.data().members]
-                members.push(currentUser.uid)
-                console.log(members)
-                db.collection("groups")
-                .doc(code)
-                .update({
-                    members: members
-                })
+                if (members.some(currentUser => (currentUser.uid !== members))) {
+                    members.push(currentUser.uid)
+                    console.log(members)
+                    db.collection("groups")
+                    .doc(code)
+                    .update({
+                        members: members
+                    })
+                }
             })
         } catch (e) {
             console.log(e)

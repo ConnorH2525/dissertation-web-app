@@ -2,6 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import AddGroupButton from './AddGroupButton'
 import AddMediaButton from "./AddMediaButton"
+import AddTextButton from "./AddTextButton"
 import JoinGroupButton from "./JoinGroupButton"
 import { useGroup } from "../../hooks/useGroup"
 import Group from "./Group"
@@ -18,12 +19,15 @@ const Dashboard = () => {
     return <div style={{height:"100%", backgroundColor:"#F6D7AF"}}>
         <Container fluid>
             <div className="d-flex align-items-center">
-                <GroupBreadCrumbs currentGroup={group}/>
+                <GroupBreadCrumbs currentGroup={group} style={{backgroundColor:"#F6D7AF"}}/>
                 
             </div>
             <div>
                 {!(group === ROOT_GROUP) &&
+                    <div className="d-flex">
                     <AddMediaButton currentGroup={group} />
+                    <AddTextButton currentGroup={group}/>
+                    </div>
                 }
             </div>
             <div>

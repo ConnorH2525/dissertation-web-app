@@ -12,7 +12,7 @@ const TopNavbar = () => {
     return (
         <Navbar style={{backgroundColor:"#212121", justifyContent: "center"}}>
             <Navbar.Brand id="title" as={Link} style={{fontWeight:"bold", color:"white"}} to ="/">
-                Picture Frame App
+                FellowFrame
             </Navbar.Brand>
             {links}
         </Navbar>

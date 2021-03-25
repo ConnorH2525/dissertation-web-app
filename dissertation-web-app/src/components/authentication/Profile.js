@@ -85,14 +85,11 @@ const [username,setName]=useState("")
             <div style={{padding:"5px"}}></div>
             <Card style={{backgroundColor:"#F6D7AF"}}>
                 <Card.Body>
-                    <h2 className="text-center mb-4">Profile</h2>
+                    <h2 className="text-center mb-4">Hi {username.username}!</h2>
+                    <hr></hr>
+                    <h5 className="text-center mb-4">Profile</h5>
                     {error && <Alert variant="danger">{error}</Alert>}
                     
-                    <hr></hr>
-                    <div>
-                        <strong>First Name: </strong>
-                        {username && username.username}
-                    </div>
                     <strong>Email: </strong>{currentUser.email}
                     <Link to="/update-profile" className="btn btn-primary w-100 mt-3" style={{backgroundColor: "#FF6B09", borderColor: "#FF6B09"}}>
                         Update Profile

@@ -8,9 +8,7 @@ const GroupBreadCrumbs = ({ currentGroup }) => {
     if (currentGroup) path = [...path, ...currentGroup.path]
 
     return <Breadcrumb className="flex-grow-1"
-            listProps={{ className: "bg-white pl-0 m-0"}}
-            style={{color:"#FF6B09"}}
-            >
+            listProps={{ className: "bg-transparent m-0"}} >
                 {path.map((group, index) => (
                     <Breadcrumb.Item
                     key={group.id}
