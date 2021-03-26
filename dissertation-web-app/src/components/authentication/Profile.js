@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from './CenteredContainer'
 import firebase, { database } from "../../firebase"
 import "firebase/firestore"
+import Navbar from "../layout/Navbar"
 
 const Profile = () => {
 const [error, setError] = useState("")
@@ -77,6 +78,8 @@ const [username,setName]=useState("")
     //                 </div>
     
     return (
+        <>
+        <Navbar />
         <div style={{backgroundColor:"#F6D7AF"}}>
         <CenteredContainer>
             <div className="w-100 text-left mt-2">
@@ -101,6 +104,7 @@ const [username,setName]=useState("")
             </div>
         </CenteredContainer>
         </div>
+        </>
     )
 }
 

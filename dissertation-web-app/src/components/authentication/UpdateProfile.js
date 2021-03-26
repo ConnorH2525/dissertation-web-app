@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
 import firebase from "../../firebase"
 import "firebase/firestore"
+import Navbar from "../layout/Navbar"
 
 const UpdateProfile = () => {
     const emailRef = useRef()
@@ -68,6 +69,8 @@ const UpdateProfile = () => {
     }*/
 
     return (
+        <>
+        <Navbar />
         <div style={{backgroundColor:"#F6D7AF"}}>
         <CenteredContainer>
             <Card style={{backgroundColor:"#F6D7AF"}}>
@@ -109,6 +112,7 @@ const UpdateProfile = () => {
             </div>
         </CenteredContainer>
         </div>
+        </>
     )
 }
 

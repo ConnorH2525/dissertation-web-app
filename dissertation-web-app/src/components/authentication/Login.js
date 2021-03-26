@@ -3,6 +3,7 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
+import Navbar from "../layout/Navbar"
 
 const Login = () => {
     const emailRef = useRef()
@@ -28,6 +29,8 @@ const Login = () => {
     }
 
     return (
+        <>
+        <Navbar />
         <div style={{backgroundColor:"#F6D7AF"}}>
         <CenteredContainer>
             <Card style={{backgroundColor:"#F6D7AF"}}>
@@ -57,6 +60,7 @@ const Login = () => {
             </div>
         </CenteredContainer>
         </div>
+        </>
     )
 }
 

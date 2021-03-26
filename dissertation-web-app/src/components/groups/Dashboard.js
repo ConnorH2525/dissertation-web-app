@@ -10,13 +10,17 @@ import File from "./File"
 import GroupBreadCrumbs from "./GroupBreadCrumbs"
 import { useParams, useLocation } from "react-router-dom"
 import { ROOT_GROUP } from '../../hooks/useGroup'
+import Navbar from "../layout/Navbar"
 
 const Dashboard = () => {
     const { groupId } = useParams()
     const { state = {} } = useLocation()
     const { group, groups, childFiles } = useGroup(groupId, state.group)
 
-    return <div style={{height:"100%", backgroundColor:"#F6D7AF"}}>
+    return (
+        <>
+        <Navbar />
+        <div style={{height:"100%", backgroundColor:"#F6D7AF"}}>
         <Container fluid>
             <div className="d-flex align-items-center">
                 <GroupBreadCrumbs currentGroup={group} style={{backgroundColor:"#F6D7AF"}}/>
@@ -67,6 +71,8 @@ const Dashboard = () => {
             )}
         </Container>
     </div>
+    </>
+    )
 }
 
 export default Dashboard

@@ -4,7 +4,7 @@ import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
 import "firebase/firestore"
- 
+import Navbar from "../layout/Navbar"
 
 const Signup = () => {
     const emailRef = useRef()
@@ -40,6 +40,8 @@ const Signup = () => {
     }
 
     return (
+        <>
+        <Navbar />
         <div style={{backgroundColor:"#F6D7AF"}}>
         <CenteredContainer>
             <Card style={{backgroundColor:"#F6D7AF"}}>
@@ -81,6 +83,7 @@ const Signup = () => {
             </div>
         </CenteredContainer>
         </div>
+        </>
     )
 }
 
