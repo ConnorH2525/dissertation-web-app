@@ -1,7 +1,7 @@
 import React from "react"
 import Signup from "./authentication/Signup"
 import { AuthProvider } from "../contexts/AuthContext"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { BrowserRouter as HashRouter, Switch, Route } from "react-router-dom"
 import Profile from "./authentication/Profile"
 import Login from "./authentication/Login"
 import PrivateRoute from "./authentication/PrivateRoute"
@@ -13,7 +13,7 @@ import "../style.css"
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <AuthProvider>
         <Switch>
           {/* Groups */}
@@ -21,7 +21,7 @@ function App() {
           <PrivateRoute exact path="/group/:groupId" component={Dashboard} />
 
           {/* Viewer */}
-          <PrivateRoute exact path="/viewer/:groupId" component={Viewer} />
+          <Route exact path="/viewer/:groupId" component={Viewer} />
 
           {/* Profile */}
           <PrivateRoute path="/user" component={Profile} />
@@ -33,7 +33,7 @@ function App() {
           <Route path="/forgot-password" component={ForgotPassword} />
         </Switch>
       </AuthProvider>
-    </Router>
+    </HashRouter>
   )
 }
 
