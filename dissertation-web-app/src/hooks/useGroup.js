@@ -83,7 +83,6 @@ export function useGroup(groupId = null, group = null) {
         .where("members", "array-contains", currentUser.uid)
         .orderBy("createdAt")
         .onSnapshot(snapshot => {
-            //if (snapshot.val.includes(currentUser.uid)) {
             dispatch({
                 type: ACTIONS.SET_GROUPS,
                 payload: { groups: snapshot.docs.map(database.formatDoc) }
