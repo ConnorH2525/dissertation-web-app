@@ -2,7 +2,7 @@ import React from 'react'
 import { useGroup } from "../../hooks/useGroup"
 import { useParams, useLocation } from "react-router-dom"
 
-const Viewer = () => {
+const Viewer = ({group}) => {
 
     const { groupId } = useParams()
     const { state = {} } = useLocation()

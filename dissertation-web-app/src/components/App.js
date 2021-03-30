@@ -13,7 +13,7 @@ import "../style.css"
 
 function App() {
   return (
-    <HashRouter>
+    <HashRouter basename={process.env.PUBLIC_URL}>
       <AuthProvider>
         <Switch>
           {/* Groups */}
