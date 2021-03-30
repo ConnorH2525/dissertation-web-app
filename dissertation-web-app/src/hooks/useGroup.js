@@ -57,7 +57,7 @@ export function useGroup(groupId = null, group = null) {
         if (groupId == null) {
             return dispatch({
                 type: ACTIONS.UPDATE_GROUP,
-                payload: { group: ROOT_GROUP}
+                payload: { group: ROOT_GROUP }
             })
         }
 
@@ -80,7 +80,7 @@ export function useGroup(groupId = null, group = null) {
     useEffect(() => {
     return database.groups
         .where("parentId", "==", groupId)
-        .where("userId", "==", currentUser.uid)
+        .where("members", "array-contains", currentUser.uid)
         .orderBy("createdAt")
         .onSnapshot(snapshot => {
             dispatch({
@@ -93,8 +93,8 @@ export function useGroup(groupId = null, group = null) {
     useEffect(() => {
         return database.files
             .where("groupId", "==", groupId)
-            .where("userId", "==", currentUser.uid)
-            //.orderBy("createdAt")
+            //.where("userId", "==", currentUser.uid)
+            .orderBy("createdAt")
             .onSnapshot(snapshot => {
                 dispatch({
                     type: ACTIONS.SET_CHILD_FILES,

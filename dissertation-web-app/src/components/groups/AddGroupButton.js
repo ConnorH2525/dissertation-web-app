@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Button, Modal, Form } from "react-bootstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faUsers, faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { database } from "../../firebase"
 import { useAuth } from "../../contexts/AuthContext"
 import { ROOT_GROUP } from "../../hooks/useGroup"
 
-export default function AddGroupButton({ currentGroup }) {
+const AddGroupButton = ({ currentGroup }) => {
     const [open, setOpen] = useState(false)
     const [name, setName] = useState("")
     const { currentUser } = useAuth()
@@ -32,11 +32,11 @@ export default function AddGroupButton({ currentGroup }) {
 
         database.groups.add({
             name: name,
+            creatorId: currentUser.uid,
             parentId: currentGroup.id,
-            userId: currentUser.uid,
             path: path,
-            createdAt: database.getCurrentTimestamp()
-            // members,
+            createdAt: database.getCurrentTimestamp(),
+            members: [currentUser.uid]
         })
 
         setName("")
@@ -45,9 +45,10 @@ export default function AddGroupButton({ currentGroup }) {
 
     return (
         <>
-        <Button onClick={openModal} variant="outline-success" size="sm">
-            <FontAwesomeIcon icon={faUsers} />
-            <FontAwesomeIcon icon={faPlus} />
+        <Button onClick={openModal} style={{backgroundColor:"rgba(0, 0, 0, 0)", minWidth:"150px", marginTop:"10px", color:"#FF6B09", borderColor: "#FF6B09"}}>
+            <FontAwesomeIcon icon={faPlus} size="3x" style={{color:"#212121"}}/>
+            <p>Create Group</p>
+            {/*<FontAwesomeIcon icon={faUsers} style={{color: "#FF6B09"}}/>*/}
         </Button>
         <Modal show={open} onHide={closeModal}>
             <Form onSubmit={handleSubmit}>
@@ -63,10 +64,10 @@ export default function AddGroupButton({ currentGroup }) {
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={closeModal}>
+                    <Button variant="secondary" onClick={closeModal} style={{backgroundColor:"#212121", borderColor:"#212121"}}>
                         Close
                     </Button>
-                    <Button variant="success" type="submit">
+                    <Button variant="success" type="submit" style={{backgroundColor:"#FF6B09", borderColor:"#FF6B09"}}>
                         Create Group
                     </Button>
                 </Modal.Footer>
@@ -75,3 +76,5 @@ export default function AddGroupButton({ currentGroup }) {
         </>
     )
 }
+
+export default AddGroupButton

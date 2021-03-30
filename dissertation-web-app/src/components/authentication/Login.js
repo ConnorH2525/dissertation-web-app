@@ -3,8 +3,9 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
+import Navbar from "../layout/Navbar"
 
-export default function Login() {
+const Login = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const { login } = useAuth()
@@ -28,8 +29,11 @@ export default function Login() {
     }
 
     return (
+        <>
+        <Navbar />
+        <div style={{backgroundColor:"#F6D7AF"}}>
         <CenteredContainer>
-            <Card>
+            <Card style={{backgroundColor:"#F6D7AF"}}>
                 <Card.Body>
                     <h2 className="text-center mb-4">Log In</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
@@ -42,19 +46,23 @@ export default function Login() {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" ref={passwordRef} required/>
                         </Form.Group>
-                        <Button disabled={loading} className="w-100" type="submit">
+                        <Button disabled={loading} className="w-100" type="submit" style={{backgroundColor:"#FF6B09", borderColor:"#FF6B09"}}>
                             Log In
                         </Button>
                     </Form>
                     <div className="w-100 text-center mt-3">
-                        <Link to="/forgot-password">Forgot Password?</Link>
+                        <Link style={{color:"#FF6B09"}} to="/forgot-password">Forgot Password?</Link>
                     </div>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Need an account? <Link to="/signup">Sign Up</Link>
+                Need an account? <Link style={{color:"#FF6B09"}} to="/signup">Create Account</Link>
             </div>
         </CenteredContainer>
+        </div>
+        </>
     )
 }
+
+export default Login
 

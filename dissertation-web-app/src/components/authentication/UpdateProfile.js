@@ -3,9 +3,11 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
-import { database } from "../../firebase"
+import firebase from "../../firebase"
+import "firebase/firestore"
+import Navbar from "../layout/Navbar"
 
-export default function UpdateProfile() {
+const UpdateProfile = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
@@ -14,6 +16,16 @@ export default function UpdateProfile() {
     const [loading, setLoading] = useState(false)
     const history = useHistory()
     const [username, setName] = useState("")
+
+    function updateUsername(username) {
+        const db = firebase.firestore()
+        db.collection("users")
+        .doc(currentUser.uid)
+        .set({
+            userId: currentUser.uid,
+            username: username
+        })
+    }
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -32,12 +44,8 @@ export default function UpdateProfile() {
         if (passwordRef.current.value) {
             promises.push(updatePassword(passwordRef.current.value))
         }
-        if  (username !== "") {
-            promises.push(database.users.add({
-                username: username,
-                userId: currentUser.uid,
-                //profilePic
-            }))
+        if (username) {
+            promises.push(updateUsername(username))
         }
 
         Promise.all(promises).then(() => {
@@ -49,9 +57,23 @@ export default function UpdateProfile() {
         })
     }
 
+    /*async function handleDelete() {
+        setError("")
+
+        try {
+            await deleteAccount()
+            history.pushState("/login")
+        } catch {
+            setError("Failed to delete account")
+        }
+    }*/
+
     return (
+        <>
+        <Navbar />
+        <div style={{backgroundColor:"#F6D7AF"}}>
         <CenteredContainer>
-            <Card>
+            <Card style={{backgroundColor:"#F6D7AF"}}>
                 <Card.Body>
                     <h2 className="text-center mb-4">Update Profile</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
@@ -60,9 +82,7 @@ export default function UpdateProfile() {
                             <Form.Label>First Name</Form.Label>
                             <Form.Control 
                                 type="text"
-                                value={username}
-                                placeholder="Enter your name here"
-                                //defaultValue={}
+                                placeholder="Change your name here"
                                 onChange={e => setName(e.target.value)}
                             />
                         </Form.Group>
@@ -78,15 +98,22 @@ export default function UpdateProfile() {
                             <Form.Label>Password Confirmation</Form.Label>
                             <Form.Control type="password" ref={passwordConfirmRef} placeholder="Leave blank to keep the same"/>
                         </Form.Group>
-                        <Button disabled={loading} className="w-100" type="submit">
+                        <Button disabled={loading} className="w-100" type="submit" style={{backgroundColor:"#FF6B09", borderColor:"#FF6B09"}}>
                             Update
                         </Button>
+                        {/*<Button onClick={handleDelete} className="w-100" variant="link" style={{backgroundColor:"red", borderColor:"#FF6B09", marginTop:"10px"}}>
+                            Delete Account
+                        </Button>*/}
                     </Form>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                <Link to="/user">Back</Link>
+                <Link style={{color: "#FF6B09"}} to="/user">Back</Link>
             </div>
         </CenteredContainer>
+        </div>
+        </>
     )
 }
+
+export default UpdateProfile
