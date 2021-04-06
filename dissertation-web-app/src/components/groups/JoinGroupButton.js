@@ -75,7 +75,7 @@ const JoinGroupButton = () => {
             <Form onSubmit={handleSubmit}>
                 <Modal.Body>
                     <Form.Group>
-                        <Form.Label>Group Code</Form.Label>
+                        <Form.Label>Frame Code</Form.Label>
                         <Form.Control
                             type="text"
                             required
@@ -89,7 +89,7 @@ const JoinGroupButton = () => {
                         Close
                     </Button>
                     <Button variant="success" type="submit" style={{backgroundColor:"#FF6B09", borderColor:"#FF6B09"}}>
-                        Join Group
+                        Connect
                     </Button>
                 </Modal.Footer>
             </Form>

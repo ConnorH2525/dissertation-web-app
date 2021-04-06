@@ -69,6 +69,7 @@ const AddMediaButton = ({ currentGroup }) => {
                         existingFile.ref.update({ url: url })
                     } else {
                         database.files.add({
+                        isText: false,
                         url: url,
                         name: file.name,
                         createdAt: database.getCurrentTimestamp(),
@@ -89,7 +90,7 @@ const AddMediaButton = ({ currentGroup }) => {
                 <p>Upload Media</p>
                 <input type="file" onChange={handleUpload} style={{ opacity: 0, position: "absolute", left: "-9999px" }} />
             </Button> */}
-            <label className="btn btn-sm m-0 mr-2 pt-3" style={{backgroundColor:"rgba(0, 0, 0, 0)", minWidth:"150px", color:"#FF6B09", borderColor: "#FF6B09"}}>
+            <label className="btn m-0 mr-2 pt-3" style={{backgroundColor:"rgba(0, 0, 0, 0)", minWidth:"150px", color:"#FF6B09", borderColor: "#FF6B09"}}>
                 <FontAwesomeIcon icon={faFileUpload} size="3x" style={{color:"#212121"}}/>
                 <p>Upload Media</p>
                 <input type="file" onChange={handleUpload} style={{ opacity: 0, position: "absolute", left: "-9999px" }} />

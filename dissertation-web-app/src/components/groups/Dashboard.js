@@ -7,6 +7,7 @@ import JoinGroupButton from "./JoinGroupButton"
 import { useGroup } from "../../hooks/useGroup"
 import Group from "./Group"
 import File from "./File"
+import Text from "./Text"
 import GroupBreadCrumbs from "./GroupBreadCrumbs"
 import { useParams, useLocation } from "react-router-dom"
 import { ROOT_GROUP } from '../../hooks/useGroup'
@@ -28,10 +29,13 @@ const Dashboard = () => {
             </div>
             <div>
                 {!(group === ROOT_GROUP) &&
+                <div>
+                    <p style={{fontWeight:"bold"}}>Group Code: {groupId}</p>
                     <div className="d-flex">
                     <AddMediaButton currentGroup={group} />
                     <AddTextButton currentGroup={group}/>
                     </div>
+                </div>
                 }
             </div>
             <div>
@@ -63,8 +67,12 @@ const Dashboard = () => {
                             key={childFile.id}
                             style={{ maxWidth: "250px" }}
                             className="p-2"
-                        >
-                            <File file={childFile} />
+                        >   
+                            {!childFile.isText &&
+                                <File file={childFile} />
+                            }
+                            {childFile.isText &&
+                                <Text file={childFile} />}
                         </div>
                     ))}
                 </div>
