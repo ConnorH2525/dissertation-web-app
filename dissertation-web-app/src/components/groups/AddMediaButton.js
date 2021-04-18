@@ -85,7 +85,7 @@ const AddMediaButton = ({ currentGroup }) => {
                         name: file.name,
                         createdAt: database.getCurrentTimestamp(),
                         groupId: currentGroup.id,
-                        user: username
+                        username: username.username
                     })
                     }
                 })
