@@ -1,14 +1,25 @@
 import { faCommentAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Modal, Form } from "react-bootstrap"
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
-import { database } from "../../firebase"
+import firebase, { database } from "../../firebase"
+import "firebase/firestore"
 
 const AddTextButton = ({ currentGroup }) => {
     const [open, setOpen] = useState(false)
     const [text, setText] = useState("")
     const { currentUser } = useAuth()
+    const [username,setName] = useState("")
+
+    useEffect(() => {
+        firebase.firestore().collection("users")
+        .doc(currentUser.uid)
+        .get()
+        .then(doc => {
+            setName(database.formatDoc(doc))
+        })
+    }, [])
 
     function openModal() {
         setOpen(true)
@@ -28,7 +39,7 @@ const AddTextButton = ({ currentGroup }) => {
             text: text,
             createdAt: database.getCurrentTimestamp(),
             groupId: currentGroup.id,
-            userId: currentUser.uid
+            username: username.username
         })
 
         setText("")

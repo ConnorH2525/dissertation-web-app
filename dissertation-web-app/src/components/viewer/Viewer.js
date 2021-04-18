@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useGroup } from "../../hooks/useGroup"
 import { useParams, useLocation } from "react-router-dom"
 import CenteredContainer from '../authentication/CenteredContainer'
-import firebase, { database } from "../../firebase"
-import "firebase/firestore"
 
 const Viewer = () => {
 
@@ -11,17 +9,20 @@ const Viewer = () => {
     const { state = {} } = useLocation()
     const { childFiles } = useGroup(groupId, state.group)
 
+    //height: "100%", 
+
     return (
-            <div style={{height: "100%", backgroundColor: "black"}}>
+            <div style={{position: "relative", backgroundColor: "black"}}>
                 {childFiles.length > 0 && (
                     <div>
-                    {childFiles.map(async (childFile, index) => (
+                    {childFiles.map(childFile => (
                         <div 
                             key={childFile.id}
                         >
                             {!childFile.isText && 
                                 <div style={{backgroundColor: "black"}}>
-                                    <img src={childFile.url}
+                                    <img
+                                    src={childFile.url}
                                     alt="example"
                                     width="100%"/>
                                 </div>
@@ -33,9 +34,7 @@ const Viewer = () => {
                                 </CenteredContainer>
                                 </div>
                             } 
-                            {<h1>{firebase.firestore().collection("users")
-                                .doc(childFile.userId)
-                                .get(username)}</h1>}
+                            <h1 style={{color: "white", margin: "0", bottom: "0", right: "0", padding: "1vh 30px", backgroundColor: "#0099FF", position: "absolute"}}>{childFile.username}</h1>
                         </div>
                     ))}
                     </div>

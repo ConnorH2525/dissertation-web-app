@@ -11,7 +11,7 @@ const Profile = () => {
 const [error, setError] = useState("")
 const { currentUser, logout } = useAuth()
 const history = useHistory()
-const [username,setName]=useState("")
+const [username,setName] = useState("")
 //const allImages = {imgUrl: ''}
     //const [imageAsFile, setImageAsFile] = useState('')
     //const [imageAsUrl, setImageAsUrl] = useState(allImages)

@@ -1,16 +1,27 @@
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from "react-dom"
 import { useAuth } from '../../contexts/AuthContext'
-import { storage, database } from "../../firebase"
+import firebase, { storage, database } from "../../firebase"
 import { ROOT_GROUP } from "../../hooks/useGroup"
 import { v4 as uuid4 } from  "uuid"
 import { Toast, ProgressBar } from "react-bootstrap"
+import "firebase/firestore"
 
 const AddMediaButton = ({ currentGroup }) => {
     const [uploadingFiles, setUploadingFiles] = useState([])
     const { currentUser } = useAuth()
+    const [username,setName] = useState("")
+
+    useEffect(() => {
+        firebase.firestore().collection("users")
+        .doc(currentUser.uid)
+        .get()
+        .then(doc => {
+            setName(database.formatDoc(doc))
+        })
+    }, [])
 
     function handleUpload(e) {
         const file = e.target.files[0]
@@ -74,7 +85,7 @@ const AddMediaButton = ({ currentGroup }) => {
                         name: file.name,
                         createdAt: database.getCurrentTimestamp(),
                         groupId: currentGroup.id,
-                        userId: currentUser.uid
+                        user: username
                     })
                     }
                 })
